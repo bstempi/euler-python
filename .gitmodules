@@ -1,0 +1,3 @@
+[submodule "pocket-euler"]
+	path = pocket-euler
+	url = https://github.com/imsky/PocketEuler.git

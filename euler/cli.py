@@ -3,8 +3,8 @@ import logging
 
 import click
 
-from euler import p1_25
-from euler.framework import Problem, AnswerChecker
+import p1_25
+from framework import Problem, AnswerChecker
 
 
 @click.group()
@@ -27,11 +27,12 @@ def run_all():
         click.echo('Testing {}...'.format(q_number))
 
         is_correct, raw_answer, hashed_answer = checker.check(q_number, q_func)
+        click.echo('Answer to {}: {}'.format(q_number, raw_answer))
 
         if is_correct:
-            click.echo('CORRECT')
+            click.echo(click.style('CORRECT', fg='green'))
         else:
-            click.echo('WRONG')
+            click.echo(click.style('WRONG', fg='red'))
 
 
 @main.command()
@@ -46,9 +47,9 @@ def run_one(number):
     is_correct, raw_answer, hashed_answer = checker.check(str(number), q_func)
 
     if is_correct:
-        click.echo('CORRECT')
+        click.echo(click.style('CORRECT', fg='green'))
     else:
-        click.echo('WRONG')
+        click.echo(click.style('WRONG', fg='red'))
 
     click.echo('Your answer: {}'.format(raw_answer))
 

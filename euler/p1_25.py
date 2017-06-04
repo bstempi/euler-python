@@ -149,3 +149,37 @@ def problem_8():
             greatest_product = product
 
     return greatest_product
+
+
+@Problem(9)
+def problem_9():
+    """
+    Brute force; not optimal but runs in a few seconds
+    :return:
+    """
+    target_sum = 1000
+
+    for a in range(1, 1001):
+        for b in range(1, 1001):
+            for c in range(1, 1001):
+                if a + b + c == target_sum:
+                    if a ** 2 + b ** 2 == c ** 2:
+                        return a * b * c
+
+
+@Problem(10)
+def problem_10():
+    highest_prime = 2000000
+    sum = 0
+
+    def is_prime(x):
+        for j in range(2, int(x ** 0.5) + 1):
+            if x % j == 0:
+                return False
+        return True
+
+    for i in range(2, highest_prime):
+        if is_prime(i):
+            sum += i
+
+    return sum

@@ -3,6 +3,11 @@ from framework import Problem
 
 @Problem(1)
 def problem_1():
+    """
+    Simple solution; I iterate from 1 to 1000 (inc) and test to see if it's divisible by 3 or 5, adding the value to a
+    running total if it is.
+    :return:
+    """
     start, end = 1, 1000
     sum = 0
 
@@ -15,6 +20,11 @@ def problem_1():
 
 @Problem(2)
 def problem_2():
+    """
+    A running sum and a buffer of the previous value is used to generate a Fib sequence.  Each number of the sequence
+    is tested to see if its even.  If it is, it is added to a running sum.
+    :return:
+    """
     start, end = 1, 4000000
     current_number = start
     previous_number = start
@@ -33,6 +43,12 @@ def problem_2():
 
 @Problem(3)
 def problem_3():
+    """
+    Knowing that the largest number that will divide into x is x^0.5 (because x^0.5 * x^0.5 = x), I start at x^0.5
+    (promounced, "root of x") and count backwards to 2, testing each number to see if it divides evenly into our target.
+    If it does, I test to see if it's prime using brute force plus the root-x optimization.
+    :return:
+    """
     number = 600851475143
 
     def is_prime(x):
@@ -52,6 +68,12 @@ def problem_3():
 
 @Problem(4)
 def problem_4():
+    """
+    This problem is a pain because the formula to get the first/last digits can be tricky.  I did it by using a
+    combination of dividing by multiples 10 to drop digits and using modulous by multiples of 10 to get a single digit.
+    The intuition is that by combining these two operations, I can write formulas that return a given digit.
+    :return:
+    """
     largest_palindrome = 1
     for i in range(999, 99, -1):
         for j in range(999, 99, -1):
@@ -80,6 +102,12 @@ def problem_4():
 
 @Problem(5)
 def problem_5():
+    """
+    This solution generates numbers that are multiples of 20 and tests to see if the range from 2 to 20, inc, will divide
+    into it.  The intuition here is that since 20 is the largest factor, using it as a stepping value will help us
+    eliminate lots of values that wouldn't work.
+    :return:
+    """
     divisor_start, divisor_end = 2, 20
     num = 0
 
@@ -98,6 +126,11 @@ def problem_5():
 
 @Problem(6)
 def problem_6():
+    """
+    This is one of those problems that's hard because it's a work problem and the word order is confusing.  The solution
+    is really simple and only involves a single loop and two counters.
+    :return:
+    """
     start, end = 1, 100
 
     sum_of_squares = 0
@@ -114,6 +147,11 @@ def problem_6():
 
 @Problem(7)
 def problem_7():
+    """
+    This problem is brute-force-ish. It tests if a number is prime by trying to divide every number between 2 and root-x
+    into it.  If it's prime, we increment a counter.  Once our counter has hit a certain value, we return x.
+    :return:
+    """
     primes_found = 0
     current_num = 2
 
@@ -135,7 +173,15 @@ def problem_7():
 
 @Problem(8)
 def problem_8():
-    # TODO Works, but checker seems not to like it.  Opened ticket:  https://github.com/imsky/PocketEuler/issues/77
+    """
+    I solved this problem by treating the number as a string and calling the `range()` function in a loop to get given
+    chunk.  I then iterated over every character, cast it to an int, and multiplied it to some running value, which would
+    get compared to the globally greatest product.
+
+    We could take this as number and use a combination of integer division and modulo on it, but this is a ridiculously
+    large number, so I'll leave that for some other exercise.
+    :return:
+    """
     really_long_number = '7316717653133062491922511967442657474235534919493496983520312774506326239578318016984801869478851843858615607891129494954595017379583319528532088055111254069874715852386305071569329096329522744304355766896648950445244523161731856403098711121722383113622298934233803081353362766142828064444866452387493035890729629049156044077239071381051585930796086670172427121883998797908792274921901699720888093776657273330010533678812202354218097512545405947522435258490771167055601360483958644670632441572215539753697817977846174064955149290862569321978468622482839722413756570560574902614079729686524145351004748216637048440319989000889524345065854122758866688116427171479924442928230863465674813919123162824586178664583591245665294765456828489128831426076900422421902267105562632111110937054421750694165896040807198403850962455444362981230987879927244284909188845801561660979191338754992005240636899125607176060588611646710940507754100225698315520005593572972571636269561882670428252483600823257530420752963450'
     greatest_product = 0
 
@@ -154,7 +200,8 @@ def problem_8():
 @Problem(9)
 def problem_9():
     """
-    Brute force; not optimal but runs in a few seconds
+    Brute force; not optimal but runs in a few seconds.  I run through all iterations of a, b, c, each from 1 to 1000,
+    inc, and test it's sum.  If it's sum matches our target, I test to see if it's a Py triplet.
     :return:
     """
     target_sum = 1000
@@ -169,6 +216,11 @@ def problem_9():
 
 @Problem(10)
 def problem_10():
+    """
+    This problem brute-forces prime testing using the root-x optimization for every number between 2 and 2000000 while
+    keeping a running total.
+    :return:
+    """
     highest_prime = 2000000
     sum = 0
 

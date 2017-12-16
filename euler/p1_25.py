@@ -451,25 +451,42 @@ def problem_13():
 
     sum_of_each_col = list()
 
-    # For each digit's index
-    for i in range(0, int(math.log(numbers[0], 10))):
-        current_col_sum = 0
+    # Calculate the total for each column
+    for i in range(0, 50):
+
+        current_sum = 0
         for num in numbers:
-            digit_of_interest = (num // 10 ** i) % 10
-            current_col_sum += digit_of_interest
+            # This bit is dense and has a few subtle bits in it:
+            # We first take the number and truncate the digits we don't need on the right.  We do this by dividing it
+            # by some multiple of 10 (the math.pow bit).  Also notice that we use // for division.  This returns an int.
+            # Using a single slash returns a float and causes incorrect answers.
+            # Lastly, we need the last digit.  We get this with the modulous operator.
+            digit = (num // int(math.pow(10, i))) % 10
+            current_sum += int(digit)
 
-        sum_of_each_col.append(current_col_sum)
+        sum_of_each_col.append(current_sum)
 
+    # Start adding each column together, truncating insignificant digits as we go along
     sum = 0
-    truncation_index = 0
-    for i in range(0, len(sum_of_each_col)):
-        sum += sum_of_each_col[i] * 10 ** (i - truncation_index)
-        num_digits = int(math.ceil(math.log(sum, 10)))
+    digits_to_trim = 0
 
-        if num_digits > 10:
-            digit_overflow_count = num_digits - 10
-            truncation_index += digit_overflow_count
-            sum = sum // 10 ** digit_overflow_count
+    for col_index, col_sum in enumerate(sum_of_each_col):
+        # the col_index here is the 10's offset
+        # to calculate the number we should add, we'd normally to num + (10 * the col offset).
+        # We might need to change that offset so that we're not tracking so many digits, so here's where we do that.
+
+        tens_offset = col_index - digits_to_trim
+        adjusted_col_sum = col_sum * int(math.pow(10, tens_offset))
+        sum = sum + adjusted_col_sum
+
+        # Here's where we need to check that our answer is still under ten digits.  If it's over, we need to truncate
+        # and update the digits_to_trim
+        sum_digit_count = math.ceil(math.log10(sum))
+        if sum_digit_count > 10:
+            # How many are we over this time?
+            current_answer_digits_over = sum_digit_count - 10
+            digits_to_trim += current_answer_digits_over
+            sum = sum // int(math.pow(10, current_answer_digits_over))
 
     return sum
 

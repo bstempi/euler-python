@@ -22,9 +22,7 @@ class Problem(object):
         if str(self.problem_number) in self.problem_map:
             raise Exception('Duplicate problem number detected: {}'.format(self.problem_number))
 
-        # Make our entry; the JSON structure that stores the answers keeps the problem numbers as strings.  We will
-        # as well to make things easy later.
-        self.problem_map[str(self.problem_number)] = func
+        self.problem_map[self.problem_number] = func
         return func
 
 

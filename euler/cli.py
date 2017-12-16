@@ -43,7 +43,7 @@ def run_one(number):
     question_map = Problem.problem_map
     checker = AnswerChecker()
 
-    q_func = question_map[str(number)]
+    q_func = question_map[number]
     is_correct, raw_answer, hashed_answer = checker.check(str(number), q_func)
 
     if is_correct:
@@ -52,6 +52,7 @@ def run_one(number):
         click.echo(click.style('WRONG', fg='red'))
 
     click.echo('Your answer: {}'.format(raw_answer))
+
 
 if __name__ == "__main__":
     main()

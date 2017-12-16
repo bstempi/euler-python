@@ -490,3 +490,29 @@ def problem_13():
 
     return sum
 
+
+@Problem(14)
+def problem_14():
+    """
+    Unoptimized brute-force approach.
+    :return:
+    """
+    longest_chain_root = 0
+    longest_chain_len = 0
+
+    for i in range(2, 1000000 + 1):
+        current_chain_len = 1
+        current_n = i
+        while current_n != 1:
+            if current_n % 2 == 0:
+                current_n = current_n // 2
+            else:
+                current_n = current_n * 3 + 1
+
+            current_chain_len += 1
+
+        if current_chain_len > longest_chain_len:
+            longest_chain_len = current_chain_len
+            longest_chain_root = i
+
+    return longest_chain_root

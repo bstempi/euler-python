@@ -516,3 +516,24 @@ def problem_14():
             longest_chain_root = i
 
     return longest_chain_root
+
+
+@Problem(15)
+def problem_15():
+    """
+    This problem is a permutation problem.
+
+    In the example 2 by 2 grid given, there are 6 possible ways to traverse.  No matter how you traverse, you must make
+    4 moves; 2 of them must be downs and 2 of them must be rights.  Instead of visualizing the problem as a grid, you
+    could visualize it like this:
+
+    (DDRR), (RRDD), (DRDR), (RDRD), etc.  If you remember prob/stat from high school or college, this should look
+    familiar.  We can restate the problem:  What are all of the permutations of 2 Ds and 2 Rs?  The formula becomes
+
+    (total number of elements)! / (elements in A !)(elements in B !) etc etc
+    See https://en.wikipedia.org/wiki/Permutation#Permutations_with_repetition
+
+    In the case of a 20 by 20 grid, we must make 20 downs and 20 rights, so the formula becomes 40! / (20! * 20!)
+    :return:
+    """
+    return math.factorial(40) // (math.factorial(20) * math.factorial(20))

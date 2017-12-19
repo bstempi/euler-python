@@ -537,3 +537,24 @@ def problem_15():
     :return:
     """
     return math.factorial(40) // (math.factorial(20) * math.factorial(20))
+
+
+@Problem(16)
+def problem_16():
+    """
+    This problem is all about writing a function that sums the digits.
+
+    We sum the digits by getting the last digit (modulous 10).  We then truncate the digit by dividing by 10.  Rinse
+    and repeat.
+    :return:
+    """
+
+    num = int(math.pow(2, 1000))
+    sum = 0
+
+    while num > 0:
+        current_digit = num % 10
+        sum += current_digit
+        num = num // 10
+
+    return sum

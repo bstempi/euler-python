@@ -20,4 +20,4 @@ Each solution function is wrapped with a `Problem` decorator.  This decorator bu
 
 Why
 ---
-Because brain teasers are fun!  It also gives me something to discuss with employers during interviews.  Not all of these answers are super-optimized or the most "cononically" correct.  Rather, they're the first solution that I came up with.  This can sometimes be a good place for discussion when others are judging my code.
+Because brain teasers are fun!  It also gives me something to discuss with employers during interviews.  Not all of these answers are super-optimized or the most "canonically" correct.  Rather, they're the first solution that I came up with.  This can sometimes be a good place for discussion when others are judging my code.

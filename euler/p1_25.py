@@ -790,3 +790,40 @@ def problem_20():
         big_farking_number = big_farking_number // 10
 
     return digit_sum
+
+
+@Problem(21)
+def problem_21():
+    """
+    In this one, we keep a map of N, d(N).  If we evaluate some number i, we can calculate d(i) and then consult the map
+    to see if d(d(i)) == i.
+
+    That's not confusing to read.
+
+    Notes:
+
+    1.  The get_sum_of_divisors is really inefficient.  I'll try every number between 1 and half the number being
+    evaluated.  This is where the majority of the solution's time is spent.
+    :return:
+    """
+    # Key:  number, value:  sum of number's proper divisors
+    sum_of_divisor_map = dict()
+    running_sum = 0
+
+    def get_sum_of_divisors(n):
+        sod = 0
+        for i in range(1, (n // 2) + 1):
+            if n % i == 0:
+                sod += i
+        return sod
+
+    for i in range(2, 10000 + 1):
+        sod = get_sum_of_divisors(i)
+        if sod in sum_of_divisor_map:
+            # Check to see if we have an amicable pair
+            if i == sum_of_divisor_map[sod]:
+                running_sum += i + sod
+        else:
+            sum_of_divisor_map[i] = sod
+
+    return running_sum

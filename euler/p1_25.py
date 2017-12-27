@@ -558,3 +558,87 @@ def problem_16():
         num = num // 10
 
     return sum
+
+
+@Problem(17)
+def problem_17():
+    """
+    :return:
+    """
+
+    char_counts = {
+        0: 0,
+        1: len('one'),
+        2: len('two'),
+        3: len('three'),
+        4: len('four'),
+        5: len('five'),
+        6: len('six'),
+        7: len('seven'),
+        8: len('eight'),
+        9: len('nine'),
+        10: len('ten'),
+        11: len('eleven'),
+        12: len('twelve'),
+        13: len('thirteen'),
+        14: len('fourteen'),
+        15: len('fifteen'),
+        16: len('sixteen'),
+        17: len('seventeen'),
+        18: len('eighteen'),
+        19: len('nineteen'),
+        20: len('twenty'),
+        30: len('thirty'),
+        40: len('forty'),
+        50: len('fifty'),
+        60: len('sixty'),
+        70: len('seventy'),
+        80: len('eighty'),
+        90: len('ninety'),
+        100: len('hundred'),
+        1000: len('thousand'),
+        'and': len('and'),
+    }
+    sum = 0
+
+    for i in range(1, 1000 + 1):
+        # First step:  Break the number down into it's components:
+        ones_place = i % 10
+        tens_place = (i % 100) // 10
+        hundreds_place = (i % 1000) // 100
+        thousands_place = (i % 10000) // 1000
+
+        # Next, we form our counts by going from the thousands place down to the ones place
+        current_sum = 0
+
+        if thousands_place > 0:
+            # We only expect to see a 1 here, so we don't have to check for teens or anything like that
+            current_sum += char_counts[thousands_place] + char_counts[1000]
+
+        if hundreds_place > 0:
+            current_sum += char_counts[hundreds_place] + char_counts[100]
+
+        # Do we need an "and"?
+        if (thousands_place + hundreds_place) > 0 and (ones_place + tens_place) > 0:
+            current_sum += char_counts['and']
+
+        # Is this thing a "teen"?
+        is_teen = tens_place == 1
+
+        # if it's a teen, do the teen lookup
+        if is_teen:
+            teen_to_look_up = i % 100
+            current_sum += char_counts[teen_to_look_up]
+
+        # tens place if it's not a teen
+        if not is_teen and tens_place > 0:
+            current_sum += char_counts[tens_place * 10]
+
+        # ones place if it's not a teen:
+        if not is_teen and ones_place > 0:
+            current_sum += char_counts[ones_place]
+
+        # Lastly, add it to the tally
+        sum += current_sum
+
+    return sum

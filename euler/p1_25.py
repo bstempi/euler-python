@@ -563,6 +563,10 @@ def problem_16():
 @Problem(17)
 def problem_17():
     """
+    To solve this problem, I iterate over all of the numbers between 1 and 1000, incl.  I then break down the number
+    into it's individual digits and use a series of if statements to determine what words to use.  I keep a dictionary
+    that contains a number or word and returns the number of letters in that number/word.  I keep a running tally and
+    return it at the end.
     :return:
     """
 
@@ -646,6 +650,17 @@ def problem_17():
 
 @Problem(18)
 def problem_18():
+    """
+    To solve this problem, we'll represent the pyramid as a 2d array, where the first dimension is the row and the
+    second dimension is the elements in the row.
+
+    The most scalable way to solve this problem is from the bottom-up.  Given some line, we can look at each element.
+    For each element, we can look at it's children and take the greater of the two and add it to the parent.  If we
+    repeat from bottom to top, the top-most element will contain the sum of the greatest path.
+
+    For a pyramid (balanced binary tree) of N elements, this takes roughly N comparisons and N additions.
+    :return:
+    """
 
     pyramid = [
         [75],
@@ -684,5 +699,5 @@ def problem_18():
 
             new_value = current_value + (left_child if left_child > right_child else right_child)
             current_line[current_value_i] = new_value
-    
+
     return pyramid[0][0]

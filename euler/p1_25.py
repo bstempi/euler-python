@@ -769,3 +769,24 @@ def problem_19():
                     current_dow = 0
 
     return total_sundays_on_first
+
+
+@Problem(20)
+def problem_20():
+    """
+    For this problem we're going to start off by asking for 100!.  We'll then loop the following steps until we're out
+    of digits:
+
+    1.  Get the last digit using mod-10
+    2.  Add it to a running total
+    3.  Truncate the last digit by doing an integer division by 10
+    :return:
+    """
+    big_farking_number = math.factorial(100)
+    digit_sum = 0
+
+    while big_farking_number > 0:
+        digit_sum += big_farking_number % 10
+        big_farking_number = big_farking_number // 10
+
+    return digit_sum

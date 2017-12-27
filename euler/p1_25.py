@@ -701,3 +701,71 @@ def problem_18():
             current_line[current_value_i] = new_value
 
     return pyramid[0][0]
+
+
+@Problem(19)
+def problem_19():
+    """
+    This is a simple brute-force.  100 years * 365 days = a really small number of days to iterate through.  This
+    problem is more of a classic highschool word problem than anything; they tell you that 1JAN1900 was a Monday and
+    that they want you to calculate the number of Sundays on the first of the month starting in 1901.
+
+    A few notes:
+
+    1.  I purposely didn't use the date-time library; this can be solved easily enough without it.
+
+    2.  Instead of iterating over every day, I could simply start at the first Sunday and iterate week by week.  If I
+    were to do that, I would have to account for overflowing at the end of the month, etc.  I felt like it was simpler,
+    albeit less efficient to write it this way.
+
+    3.  If I were really, really fancy, I would maybe take a different approach and calculate what days are on the first
+    of the month, as a list starting from 0 on 1JAN1901 and then try to calculate (perhaps through modular division?)
+    which of those are Sundays.  This would require fewer additions (one per month, so 120 operations roughly) and 120
+    divisions (to check every one of the first-of-month dates against a known offset).  This would be faster, but not
+    noticeable at this scale.
+
+    :return:
+    """
+    def days_in_month(month, year):
+        std_dim = {
+            1: 31,
+            3: 31,
+            4: 30,
+            5: 31,
+            6: 30,
+            7: 31,
+            8: 31,
+            9: 30,
+            10: 31,
+            11: 30,
+            12: 31
+        }
+
+        if month in std_dim:
+            return std_dim[month]
+
+        non_std_dim = {
+            2: lambda year: 29 if (year % 4 == 0) and (year % 100 != 0 or year % 400 == 0) else 28
+        }
+
+        return non_std_dim[month](year)
+
+    total_sundays_on_first = 0
+
+    # dow go from 0 to 6 to represent Monday through Sunday, respectively.
+    current_dow = 0
+
+    for year in range(1900, 2000 + 1):
+        for month in range(1, 12 + 1):
+            dim = days_in_month(month, year)
+
+            for day in range(1, dim + 1):
+                if day == 1 and current_dow == 6 and year >= 1901:
+                    total_sundays_on_first += 1
+
+                # We're done our iteration; advance the day of week
+                current_dow += 1
+                if current_dow > 6:
+                    current_dow = 0
+
+    return total_sundays_on_first

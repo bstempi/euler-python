@@ -642,3 +642,47 @@ def problem_17():
         sum += current_sum
 
     return sum
+
+
+@Problem(18)
+def problem_18():
+
+    pyramid = [
+        [75],
+        [95, 64],
+        [17, 47, 82],
+        [18, 35, 87, 10],
+        [20, 4, 82, 47, 65],
+        [19, 1, 23, 75, 3, 34],
+        [88, 2, 77, 73, 7, 63, 67],
+        [99, 65, 4, 28, 6, 16, 70, 92],
+        [41, 41, 26, 56, 83, 40, 80, 70, 33],
+        [41, 48, 72, 33, 47, 32, 37, 16, 94, 29],
+        [53, 71, 44, 65, 25, 43, 91, 52, 97, 51, 14],
+        [70, 11, 33, 28, 77, 73, 17, 78, 39, 68, 17, 57],
+        [91, 71, 52, 38, 17, 14, 91, 43, 58, 50, 27, 29, 48],
+        [63, 66, 4, 68, 89, 53, 67, 30, 73, 16, 69, 87, 40, 31],
+        [4, 62, 98, 27, 23, 9, 70, 98, 73, 93, 38, 53, 60, 4, 23],
+    ]
+
+    # We're going to iterate over every line of the pyramid, starting one up from the bottom and going to the top.  The
+    # idea is that we want to look at the children directly under a given number, select the larger of the two, and add
+    # it to the current number.  When we get to the top, pyramid[0][0] with have the greatest sum of all of the paths.
+
+    # This range statement is confusing to read; len(pyramid) - 1 gives us the index of the final line; we want to start
+    # one above that and go to 0-inclusive.
+    for current_line_i in range(len(pyramid) - 1 - 1, 0 - 1, -1):
+        current_line = pyramid[current_line_i]
+
+        for current_value_i in range(0, len(current_line)):
+            current_value = current_line[current_value_i]
+
+            # Not-so-fancy index math
+            child_line_i = current_line_i + 1
+            left_child = pyramid[child_line_i][current_value_i]
+            right_child = pyramid[child_line_i][current_value_i + 1]
+
+            new_value = current_value + (left_child if left_child > right_child else right_child)
+            current_line[current_value_i] = new_value
+    
+    return pyramid[0][0]

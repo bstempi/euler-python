@@ -827,3 +827,48 @@ def problem_21():
             sum_of_divisor_map[i] = sod
 
     return running_sum
+
+
+@Problem(22)
+def problem_22():
+    """
+    This solution is inefficient but runs in a reasonable amount of time.
+
+    We read in the file, split it into a list, then build a new list that contains each name sans quotes in lower-case.
+
+    We then sort the parsed list and iterate through each line.  For each line, we iterate through each letter to get
+    it's value and, in turn, the word's value.  We then multiply the word value with the 1-based line number and keep a
+    running total.
+
+    BOOM.
+    :return:
+    """
+    # Alright, first thing's first:  Let's read in that file.  It just so happens that PocketEuler already has it for us
+    with open('../pocket-euler/files/names.txt', 'r') as content_file:
+        content = content_file.read()
+
+    # Let's go ahead and split the names into a list
+    split_content = content.split(',')
+
+    # Let's go through that list and strip the quotes and make them all lower-case
+    names = list()
+    for name in split_content:
+        names.append(name.strip('"').lower())
+
+    # sort them
+    sorted_names = sorted(names)
+
+    # For each name and line number, we'll calculate the name's value and keep a running total of the product.
+    total = 0
+    for i, name in enumerate(sorted_names):
+        line_number = i + 1
+
+        # Name value calculation
+        name_total = 0
+        for letter in name:
+            letter_value = ord(letter) - ord('a') + 1
+            name_total += letter_value
+
+        total += name_total * line_number
+
+    return total

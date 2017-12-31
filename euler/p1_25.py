@@ -872,3 +872,50 @@ def problem_22():
         total += name_total * line_number
 
     return total
+
+
+@Problem(23)
+def problem_23():
+    """
+    This solution is a bit memory inefficient, but it works.
+
+    We find all of the abundant numbers by calculating the sum of the divisors between 1 and 28123, inclusive.  If the
+    s.o.d. is greater than the number itself, it's abundant and we add it to a set.  We when make two copies of that set
+    and loop through both of them in a nested loop.  This gives us every possible combination of every abundant number.
+    We calculate each sum and add it to a set to eliminate dups.
+
+    We then take this set of numbers-that-are-sums-of-abundant-numbers and diff that against a set that is every number
+    from 1 to 28123, inclusive, to get our numbers-that-are-not-sums-of-abundant-numbers.
+
+    We sum our final set and return it.
+
+    This answer spends most of it's time finding divisors.
+    :return:
+    """
+    def get_sum_of_divisors(n):
+        sod = 0
+        for i in range(1, (n // 2) + 1):
+            if n % i == 0:
+                sod += i
+        return sod
+
+    abundant_numbers = set()
+    all_numbers = set(i for i in range(1, 28123 + 1))
+
+    # Find all of the abundant numbers
+    for i in all_numbers:
+        if i < get_sum_of_divisors(i):
+            abundant_numbers.add(i)
+
+    numbers_from_abundant_numbers = set()
+
+    # Find the sum of all combinations of all abundant numbers and store them in a set
+    for i in set(abundant_numbers):
+        for j in set(abundant_numbers):
+            sum_of_abundant_numbers = i + j
+            if sum_of_abundant_numbers <= 28123:
+                numbers_from_abundant_numbers.add(sum_of_abundant_numbers)
+
+    # Our answer is the difference between all_numbers and numbers_from_abundant_numbers
+    numbers_that_are_not_sums_of_abundant_numbers = all_numbers.difference(numbers_from_abundant_numbers)
+    return sum(numbers_that_are_not_sums_of_abundant_numbers)

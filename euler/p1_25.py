@@ -924,6 +924,12 @@ def problem_23():
 
 @Problem(24)
 def problem_24():
+    """
+    To solve this problem, we're going to count on itertools.permutations.  It just so happens that it iterates through
+    the permutations "in order," so if we ask it to iterate one million times and we start with a list that's in lex
+    order, it'll give us the one millionth item in lex order.
+    :return:
+    """
     digits = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 
     # The trick here is to use itertools.permutations.  It just so happens that it will swap the elements in a
@@ -940,3 +946,22 @@ def problem_24():
         final_number += result[i] * (10 ** (len(result) - i - 1))
 
     return final_number
+
+
+@Problem(25)
+def problem_25():
+    """
+    In this problem, we will use a loop to calculate a fib sequence.  We'll keep track of the number of iterations and
+    test each output.  To test, we'll first calculate a number with 1000 digits and simply compare each iteration.
+    :return:
+    """
+    target = 10 ** (1000 - 1)
+    previous_f = [1, 1]
+    i = 2
+    result = 0
+    while result < target:
+        result = previous_f[0] + previous_f[1]
+        i += 1
+        previous_f[0] = previous_f[1]
+        previous_f[1] = result
+    return i

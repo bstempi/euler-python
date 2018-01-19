@@ -1,3 +1,4 @@
+import itertools
 import math
 
 from framework import Problem
@@ -919,3 +920,23 @@ def problem_23():
     # Our answer is the difference between all_numbers and numbers_from_abundant_numbers
     numbers_that_are_not_sums_of_abundant_numbers = all_numbers.difference(numbers_from_abundant_numbers)
     return sum(numbers_that_are_not_sums_of_abundant_numbers)
+
+
+@Problem(24)
+def problem_24():
+    digits = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+    # The trick here is to use itertools.permutations.  It just so happens that it will swap the elements in a
+    # predictable order.  If we give it a sorted tuple, it'll iterate through in lexicographical order.
+
+    p = itertools.permutations(digits)
+    for i in range(1, 1000000 + 1):
+        result = next(p)
+
+    # At this point, we have a collection of digits.  We need to combine them into a single number
+    final_number = 0
+    for i in range(0, len(result)):
+        # Grab this digit, multiply it buy the correct "place" and add it to the result
+        final_number += result[i] * (10 ** (len(result) - i - 1))
+
+    return final_number

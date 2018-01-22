@@ -43,6 +43,10 @@ def run_one(number):
     question_map = Problem.problem_map
     checker = AnswerChecker()
 
+    if number not in question_map:
+        click.echo(click.style('Problem does not have a solution', fg='red'))
+        return
+
     q_func = question_map[number]
     is_correct, raw_answer, hashed_answer = checker.check(str(number), q_func)
 

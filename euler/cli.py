@@ -4,6 +4,7 @@ import logging
 import click
 
 import p1_25
+import p26_50
 from framework import Problem, AnswerChecker
 
 

@@ -179,3 +179,40 @@ def problem_29():
             distinct_number_set.add(a**b)
 
     return len(distinct_number_set)
+
+
+@Problem(30)
+def problem_30():
+    """
+    This is brute force with an optimization as to where to stop.
+
+    We know we need to start at two, but when do we stop?  Consider the maximum sum of the digits in a 3 digit number:
+
+    9^5 + 9^5 + 9^5 = ~177,000
+
+    So, the maximum sum of the digits of a 3 digit number is larger than a 3 digit number.  What happens if we continue
+    this analysis?
+
+    4*9^5 = ~236,000
+    5*9^5 = ~295,000
+    6*9^5 = ~354,000
+    7*9^5 = ~413,000
+
+    We can see that once we get to an n with 7 digits, we can't generate a sum of powers of digits large enough to come
+    close to our max n (7 nines).  So, we can stop analysis after considering numbers up to 6 digits.
+    :return:
+    """
+    running_total = 0
+    digits = {i: i ** 5 for i in range(0, 10)}
+
+    # For every number 5 digit number
+    for n in range(2, (6 * 9 ** 5) + 1):
+        # Get a list of digits
+        current_n_digits = [(n // (10 ** i)) % 10 for i in range(math.floor(math.log(n, 10)) + 1)]
+
+        current_n_sum = sum(digits[x] for x in current_n_digits)
+
+        if current_n_sum == n:
+            running_total += n
+
+    return running_total

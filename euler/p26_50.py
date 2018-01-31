@@ -164,3 +164,18 @@ def problem_28():
         current_movement_len -= 2
 
     return running_sum
+
+
+@Problem(29)
+def problem_29():
+    """
+    This is a simple brute-force problem with sets
+    :return:
+    """
+    distinct_number_set = set()
+
+    for a in range(2, 100 + 1):
+        for b in range(2, 100 + 1):
+            distinct_number_set.add(a**b)
+
+    return len(distinct_number_set)

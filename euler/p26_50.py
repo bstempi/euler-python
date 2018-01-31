@@ -125,3 +125,42 @@ def problem_27():
                     break
 
     return greatest_ns_a * greatest_ns_b
+
+
+@Problem(28)
+def problem_28():
+    """
+    This problem can be solved by iterating through the numbers (1, 1001^2) and keeping track of (a) the "coordinate"
+    and (b) the length of the current piece of the spiral.  Any coordinate of (x, y) where x==y gives us one of the
+    diagonals.  You can get the other one checking x+y==n, where n is the total width of the matrix, making sure to
+    make the appropriate adjustments for the one and zero based counts.
+
+    Considering the 5 by 5 example, we can say that we start at 25 and it's coordinate is (0, 0), making it a diagonal.
+    We know that the outer-most part of the spiral is 5 elements long, so we can say that 25 is part of the diagonal.
+    The total width of the spiral is 5, so if we move 4 elements over (21), we can say that is also part of the
+    diagonal.  If we move 4 elements again (17), that is also part of the diagonal.  Repeat, and we get to 13.
+
+    The next move is the interesting one.  If we move by 4 again, we get 9, but that's the last time we can move like
+    that.  After that, our spiral shrinks by one unit in every direction, so our movements become separated by two.
+
+    So, for every 4 moves, we must decrease our movement rate by two.
+    :return:
+    """
+    starting_width = 1001
+    current_pos = starting_width**2
+
+    # Our running sum starts with our starting pos
+    running_sum = current_pos
+    current_movement_len = starting_width - 1
+
+    # While we haven't reached the middle
+    while current_pos > 1:
+        # Move 4 times
+        for i in range(4):
+            current_pos -= current_movement_len
+            running_sum += current_pos
+
+        # After our 4 moves, decrease the spiral size
+        current_movement_len -= 2
+
+    return running_sum

@@ -216,3 +216,18 @@ def problem_30():
             running_total += n
 
     return running_total
+
+
+@Problem(31)
+def problem_31():
+    """
+    This problem can be solved using permutations.
+
+    If we're trying to figure out how to give change with the fewest amount of coins, we'd take the dollar amount and
+    divide in the largest coin as many times as we could evenly.  Then, we'd take the remainder and do the same thing
+    with the next largest coin, etc.
+
+    We could do this with every permutation of coins.
+    :return:
+    """
+    pass
